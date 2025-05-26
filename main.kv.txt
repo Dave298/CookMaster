@@ -1,0 +1,53 @@
+<RecipeUI>:
+    orientation: "vertical"
+    spacing: 10
+    padding: 10
+
+    TextInput:
+        id: title_input
+        hint_text: "Recipe Title"
+        size_hint_y: None
+        height: 40
+        multiline: False
+        on_text: root.title_input.text = self.text
+
+    TextInput:
+        id: ingredients_input
+        hint_text: "Ingredients"
+        multiline: True
+        on_text: root.ingredients_input.text = self.text
+
+    TextInput:
+        id: instructions_input
+        hint_text: "Instructions"
+        multiline: True
+        on_text: root.instructions_input.text = self.text
+
+    Button:
+        text: "Add Recipe"
+        size_hint_y: None
+        height: 50
+        on_release: root.add_recipe(self)
+
+    Spinner:
+        id: recipe_spinner
+        text: "Select a recipe"
+        values: root.manager.get_recipe_titles()
+        size_hint_y: None
+        height: 44
+        on_text: root.show_recipe(self, self.text)
+
+    ScrollView:
+        Label:
+            id: recipe_display
+            text: ""
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            markup: True
+
+    Button:
+        text: "Delete Selected Recipe"
+        size_hint_y: None
+        height: 50
+        on_release: root.delete_recipe(self)

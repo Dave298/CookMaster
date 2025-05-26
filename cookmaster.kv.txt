@@ -1,0 +1,80 @@
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 20
+        padding: 40
+
+        Label:
+            text: "🍳 CookMaster"
+            font_size: 36
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: "📋 Manage Recipes"
+            on_release: app.root.current = "recipes"
+
+        Button:
+            text: "🛒 Shopping List"
+            on_release: app.root.current = "shopping"
+
+        Button:
+            text: "👤 User Account"
+            on_release: app.root.current = "account"
+
+        Button:
+            text: "🍱 Meal Plans"
+            on_release: app.root.current = "mealplan"
+
+        Button:
+            text: "⏱ Timers"
+            on_release: app.root.current = "timer"
+
+        Button:
+            text: "Exit"
+            on_release: app.stop()
+
+<RecipesScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Recipe Manager"
+        Button:
+            text: "← Back"
+            on_release: app.root.current = "home"
+
+<ShoppingListScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Shopping List"
+        Button:
+            text: "← Back"
+            on_release: app.root.current = "home"
+
+<UserAccountScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "User Accounts"
+        Button:
+            text: "← Back"
+            on_release: app.root.current = "home"
+
+<MealPlanScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Meal Plans"
+        Button:
+            text: "← Back"
+            on_release: app.root.current = "home"
+
+<TimerScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Cooking Timers"
+        Button:
+            text: "← Back"
+            on_release: app.root.current = "home"
