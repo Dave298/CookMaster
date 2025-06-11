@@ -1,0 +1,43 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y python3-pip build-essential git zip unzip openjdk-17-jdk zlib1g-dev libncurses5 libffi-dev libsqlite3-dev libssl-dev libjpeg-dev libfreetype6-dev liblcms2-dev libtiff5-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev libgl1-mesa-dev
+        pip install buildozer cython
+
+    - name: Build APK
+      run: |
+        cd $GITHUB_WORKSPACE
+        buildozer init
+        echo "requirements = python3,kivy" >> buildozer.spec
+        echo "package.name = cookmaster" >> buildozer.spec
+        echo "package.domain = org.cookmaster" >> buildozer.spec
+        echo "source.include_exts = py,png,jpg,kv,atlas" >> buildozer.spec
+        echo "orientation = portrait" >> buildozer.spec
+        echo "android.permissions = INTERNET" >> buildozer.spec
+        echo "title = CookMaster" >> buildozer.spec
+        buildozer android debug
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: CookMaster-APK
+        path: bin/*.apk
